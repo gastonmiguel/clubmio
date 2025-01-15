@@ -14,11 +14,16 @@ import { Button } from '@/app/ui/button';
 import { createPartner, State } from '@/app/lib/partners/actions';
 import { useActionState } from 'react';
 import { Status } from '@/app/lib/partners/definitions';
+import Waiting from '../waiting';
 
 export default function Form() {
 
   const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(createPartner, initialState);
+  const [state, formAction, isPending] = useActionState(createPartner, initialState);
+
+  if (isPending) {
+    return <Waiting />
+  }
 
   return (
     <form action={formAction}>

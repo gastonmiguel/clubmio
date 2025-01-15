@@ -16,6 +16,7 @@ import { updatePartner, State } from '@/app/lib/partners/actions';
 import { useActionState } from 'react';
 import Image from 'next/image';
 import { imageUrl } from '@/app/lib/utils';
+import Waiting from '../waiting';
 
 export default function EditInvoiceForm({
   partner,
@@ -25,7 +26,11 @@ export default function EditInvoiceForm({
 
   const initialState: State = { message: null, errors: {} };
   const updateInvoiceWithId = updatePartner.bind(null, partner.id);
-  const [state, formAction] = useActionState(updateInvoiceWithId, initialState);
+  const [state, formAction, isPending] = useActionState(updateInvoiceWithId, initialState);
+
+  if (isPending) {
+    return <Waiting />
+  }
 
   return (
     <form action={formAction}>
