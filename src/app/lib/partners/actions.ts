@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { apiFetchPost } from '../apiFetch';
+import { apiFetch } from '../apiFetch';
 import { Status } from './definitions';
 
 const FormSchema = z.object({
@@ -65,7 +65,7 @@ export async function createPartner(prevState: State, formData: FormData) {
 
     const photo = await handlePhotoUpload(photo_file);
 
-    apiFetchPost('/partners', {
+    apiFetch('/partners', 'POST', {
         name,
         surname,
         birthdate,
@@ -108,7 +108,7 @@ export async function updatePartner(
 
     const photo = await handlePhotoUpload(photo_file);
 
-    await apiFetchPost(`/partners/${id}`,
+    await apiFetch(`/partners/${id}`, 'PUT',
         {
             name,
             surname,
@@ -117,13 +117,13 @@ export async function updatePartner(
             phone,
             photo,
             status
-        }, 'PUT');
+        });
 
     revalidatePath('/dashboard/partners');
     redirect('/dashboard/partners');
 }
 
 export async function deletePartner(id: string): Promise<void> {
-    await apiFetchPost(`/partners/${id}`, {}, 'DELETE');
+    await apiFetch(`/partners/${id}`, 'DELETE');
     revalidatePath('/dashboard/partners');
 }
