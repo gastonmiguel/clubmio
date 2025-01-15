@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { UpdatePartner, DeletePartner } from '@/app/ui/partners/buttons';
 import ParnetStatus from '@/app/ui/partners/status';
-import { imageUrl } from '@/app/lib/utils';
+import { dateSmall, imageUrl } from '@/app/lib/utils';
 import { fetchFilteredPartners } from '@/app/lib/partners/data';
+import { dateOnlyYear } from '@/app/lib/utils';
+import { CakeIcon } from '@heroicons/react/24/outline';
 
 export default async function PartnersTable({
   query,
@@ -29,26 +31,24 @@ export default async function PartnersTable({
                       <Image
                         src={imageUrl(partner.photo)}
                         className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
+                        width={100}
+                        height={100}
                         alt={`${partner.name}'s profile picture`}
                       />
-                      <p>{partner.name}</p>
+                      <p>{partner.name} <br></br> {partner.surname}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{partner.surname}</p>
                   </div>
                   <ParnetStatus status={partner.status} />
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    <p className="text-xl font-medium">
-                      {partner.surname}
+                    <p className="text-xl font-bold">
+                      {dateOnlyYear(partner.birthdate)}
                     </p>
-                    <p>{partner.birthdate}</p>
+                    <p className="text-sm text-gray-500 inline-flex mr-5"><CakeIcon className="w-4" /><span>{dateSmall(partner.birthdate)}</span></p>
                   </div>
                   <div className="flex justify-end gap-2">
                     <UpdatePartner id={partner.id} />
-                    <DeletePartner id={partner.id} />
                   </div>
                 </div>
               </div>
@@ -58,16 +58,13 @@ export default async function PartnersTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Customer
+                  Socio
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Email
+                  Documento
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Date
+                  Fecha de nacimiento
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Status
@@ -92,14 +89,11 @@ export default async function PartnersTable({
                         height={28}
                         alt={`${partner.name}'s profile picture`}
                       />
-                      <p>{partner.name}</p>
+                      <p>{partner.name} {partner.surname}</p>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {partner.surname}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {partner.surname}
+                    {partner.document_number}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {partner.birthdate}
@@ -110,7 +104,6 @@ export default async function PartnersTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
                       <UpdatePartner id={partner.id} />
-                      <DeletePartner id={partner.id} />
                     </div>
                   </td>
                 </tr>

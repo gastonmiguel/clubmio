@@ -58,9 +58,11 @@ export async function apiFetchFiltered(page: string, query: string, currentPage:
 
 export async function apiFetchPages(page: string, query: string) {
 
+    console.log(`${API_URL}${page}/pages`);
+
     try {
         const response = await fetch(
-            `${API_URL}${page}/pages?query=${encodeURIComponent(query)}`,
+            `${API_URL}${page}/pages`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -74,9 +76,7 @@ export async function apiFetchPages(page: string, query: string) {
 
         const { totalPages } = await response.json();
 
-        const total = Math.ceil(totalPages / ITEMS_PER_PAGE);
-
-        return total;
+        return totalPages;
 
     } catch (error) {
         throw new Error('Failed to fetch total number of pages.' + error);

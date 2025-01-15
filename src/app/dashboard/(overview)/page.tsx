@@ -1,4 +1,4 @@
-import LatestPartners from '@/app/ui/dashboard/latest-partnerts';
+import UpcomingBirthdays from '@/app/ui/dashboard/upcoming-birthdays';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import {
@@ -13,7 +13,7 @@ export default async function Page() {
             </h1>
             <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
                 <Suspense fallback={<LatestPartnersSkeleton />}>
-                    <LatestPartners />
+                    <UpcomingBirthdays />
                 </Suspense>
             </div>
         </main>

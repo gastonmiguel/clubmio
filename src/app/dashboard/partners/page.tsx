@@ -9,7 +9,7 @@ import { fetchPartnersPages } from '@/app/lib/partners/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Partners',
+    title: 'Socios',
 };
 
 export default async function Page(props: {
