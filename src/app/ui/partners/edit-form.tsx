@@ -186,6 +186,7 @@ export default function EditInvoiceForm({
                 name="photo"
                 type="file"
                 accept="image/*"
+                capture="environment"
                 defaultValue={partner.photo}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
