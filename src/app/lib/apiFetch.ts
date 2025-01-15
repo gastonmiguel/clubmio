@@ -1,20 +1,17 @@
 'use server';
 
-const ITEMS_PER_PAGE = 6;
 const API_URL = process.env.API_SERVER_URL;
 const token = "54|HfmTBCvB2NhCEpvSMvBjFhZKBeY7F5wY8NC4bELR9f6f000e";
 
 export async function apiFetch(
     endpoint: string,
     method: string = 'GET',
-    body: object | null = null,
-    additionalParams: Record<string, any> = {}
+    body: object | null = null
 ) {
     const headers: HeadersInit = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
-        ...additionalParams.headers,
+        Authorization: `Bearer ${token}`
     };
 
     try {

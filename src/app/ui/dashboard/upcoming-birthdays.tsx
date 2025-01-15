@@ -2,12 +2,13 @@ import { CakeIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
-import { fecthUpcomingBirthdays } from '@/app/lib/partners/data';
+import { fecthUpcomingBirthdays } from '@/app/lib/data';
 import { imageUrl } from '@/app/lib/utils';
 import { dateSmall } from '@/app/lib/utils';
+import { Partner } from '@/app/lib/partners/definitions';
 
 export default async function UpcomingBirthdays() {
-    const partnersBirthdays = await fecthUpcomingBirthdays();
+    const partnersBirthdays: Partner[] = await fecthUpcomingBirthdays('/partners');
     return (
         <div className="flex w-full flex-col md:col-span-4">
             <div className="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">

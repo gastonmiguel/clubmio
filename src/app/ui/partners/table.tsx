@@ -2,9 +2,10 @@ import Image from 'next/image';
 import { UpdatePartner } from '@/app/ui/partners/buttons';
 import ParnetStatus from '@/app/ui/partners/status';
 import { dateSmall, imageUrl } from '@/app/lib/utils';
-import { fetchFilteredPartners } from '@/app/lib/partners/data';
+import { fetchFiltered } from '@/app/lib/data';
 import { dateOnlyYear } from '@/app/lib/utils';
 import { CakeIcon } from '@heroicons/react/24/outline';
+import { Partner } from '@/app/lib/partners/definitions';
 
 export default async function PartnersTable({
   query,
@@ -13,7 +14,7 @@ export default async function PartnersTable({
   query: string;
   currentPage: number;
 }) {
-  const partners = await fetchFilteredPartners(query, currentPage);
+  const partners: Partner[] = await fetchFiltered('/partners', query, currentPage);
 
   return (
     <div className="mt-6 flow-root">

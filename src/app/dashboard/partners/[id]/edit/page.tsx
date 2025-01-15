@@ -1,20 +1,18 @@
 import Form from '@/app/ui/partners/edit-form';
 import Breadcrumbs from '@/app/ui/partners/breadcrumbs';
-import { fetchPartnerById } from '@/app/lib/partners/data';
+import { fetchById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { Partner } from '@/app/lib/partners/definitions';
 
 export const metadata: Metadata = {
-    title: 'Invoice Edit',
+    title: 'Editar Socio',
 };
-
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const id = params.id;
-    const [partner] = await Promise.all([
-        fetchPartnerById(id),
-    ]);
+    const partner: Partner = await fetchById('/partners', id);
     if (!partner) {
         notFound();
     }
@@ -22,10 +20,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         <main>
             <Breadcrumbs
                 breadcrumbs={[
-                    { label: 'Invoices', href: '/dashboard/invoices' },
+                    { label: 'Invoices', href: '/dashboard/partners' },
                     {
-                        label: 'Edit Invoice',
-                        href: `/dashboard/invoices/${id}/edit`,
+                        label: 'Editar Socio',
+                        href: `/dashboard/partners/${id}/edit`,
                         active: true,
                     },
                 ]}

@@ -1,6 +1,6 @@
 import UpcomingBirthdays from '@/app/ui/dashboard/upcoming-birthdays';
 import { Suspense } from 'react';
-import { UpcomingBirthdaysSkeleton } from '@/app/ui/partners/skeletons';
+import { UpcomingBirthdaysSkeleton } from '@/app/ui/dashboard/skeletons';
 
 export default async function Page() {
     return (

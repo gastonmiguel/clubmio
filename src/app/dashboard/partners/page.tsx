@@ -5,7 +5,7 @@ import { CreatePartner } from '@/app/ui/partners/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { PartnersTableSkeleton } from '@/app/ui/partners/skeletons';
-import { fetchPartnersPages } from '@/app/lib/partners/data';
+import { fetchPages } from '@/app/lib/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default async function Page(props: {
     const searchParams = await props.searchParams;
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    const totalPages = await fetchPartnersPages(query);
+    const totalPages = await fetchPages('/partners', query);
 
     return (
         <div className="w-full">
