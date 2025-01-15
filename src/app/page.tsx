@@ -1,7 +1,5 @@
-export default function Home() {
-  return (
-    <>
-      <h1>Home</h1>
-    </>
-  );
-}
+'use server'
+
+import { permanentRedirect } from 'next/navigation'
+
+permanentRedirect(`/dashboard`);
