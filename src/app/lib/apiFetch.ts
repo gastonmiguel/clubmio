@@ -58,11 +58,9 @@ export async function apiFetchFiltered(page: string, query: string, currentPage:
 
 export async function apiFetchPages(page: string, query: string) {
 
-    console.log(`${API_URL}${page}/pages`);
-
     try {
         const response = await fetch(
-            `${API_URL}${page}/pages`,
+            `${API_URL}${page}/pages` + '?query=' + encodeURIComponent(query),
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

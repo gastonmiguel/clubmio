@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UpdatePartner, DeletePartner } from '@/app/ui/partners/buttons';
+import { UpdatePartner } from '@/app/ui/partners/buttons';
 import ParnetStatus from '@/app/ui/partners/status';
 import { dateSmall, imageUrl } from '@/app/lib/utils';
 import { fetchFilteredPartners } from '@/app/lib/partners/data';

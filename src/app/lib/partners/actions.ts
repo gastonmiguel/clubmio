@@ -1,12 +1,10 @@
 'use server';
 
 import { z } from 'zod';
-import { startTransition } from 'react';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { apiFetchPost } from '../apiFetch';
 import { Status } from './definitions';
-import multer from 'multer';
 
 const FormSchema = z.object({
     id: z.string(),
@@ -35,8 +33,7 @@ export type State = {
     message?: string | null;
 };
 
-const upload = multer({ storage: multer.memoryStorage() });
-const handlePhotoUpload = async (photo_file: any) => {
+const handlePhotoUpload = async (photo_file: string | File) => {
     if (photo_file instanceof File) {
         const buffer = await photo_file.arrayBuffer();
         return Buffer.from(buffer).toString('base64') || '';
@@ -64,7 +61,7 @@ export async function createPartner(prevState: State, formData: FormData) {
 
     const { name, surname, birthdate, document_number, phone, status } = validatedFields.data;
 
-    const photo_file = formData.get('photo') || null;
+    const photo_file = formData.get('photo') || '';
 
     const photo = await handlePhotoUpload(photo_file);
 
@@ -89,7 +86,7 @@ export async function updatePartner(
 ) {
 
     // Validate form using Zod
-    const validatedFields = CreatePartner.safeParse({
+    const validatedFields = UpdatePartner.safeParse({
         name: formData.get('name'),
         surname: formData.get('surname'),
         birthdate: formData.get('birthdate'),
@@ -107,7 +104,7 @@ export async function updatePartner(
 
     const { name, surname, birthdate, document_number, phone, status } = validatedFields.data;
 
-    const photo_file = formData.get('photo') || null;
+    const photo_file = formData.get('photo') || '';
 
     const photo = await handlePhotoUpload(photo_file);
 

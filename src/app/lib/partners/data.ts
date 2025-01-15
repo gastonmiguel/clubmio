@@ -17,7 +17,6 @@ export async function fetchFilteredPartners(
 
     const partners: Partner[] = await apiFetchFiltered('/partners', query, currentPage);
     return partners;
-
 }
 
 export async function fetchPartnersPages(query: string) {

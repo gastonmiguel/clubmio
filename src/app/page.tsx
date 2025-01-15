@@ -1,5 +1,4 @@
-'use server'
-
-import { permanentRedirect } from 'next/navigation'
-
-permanentRedirect(`/dashboard`);
+export default function Page() {
+    
+    return null; // No renderiza nada porque la redirección ocurre inmediatamente.
+}
