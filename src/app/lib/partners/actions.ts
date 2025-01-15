@@ -36,7 +36,7 @@ export type State = {
 };
 
 const upload = multer({ storage: multer.memoryStorage() });
-const handlePhotoUpload = async (photo_file : any) => {
+const handlePhotoUpload = async (photo_file: any) => {
     if (photo_file instanceof File) {
         const buffer = await photo_file.arrayBuffer();
         return Buffer.from(buffer).toString('base64') || '';
@@ -77,41 +77,9 @@ export async function createPartner(prevState: State, formData: FormData) {
         photo,
         status
     });
-    
+
     revalidatePath('/dashboard/partners');
     redirect('/dashboard/partners');
-
-
-    // if (photo_file instanceof File) {
-    //     photo_file.arrayBuffer().then((buffer) => {
-    //         let photo = Buffer.from(buffer).toString('base64') || '';
-
-    //         apiFetchPost('/partners', {
-    //             name,
-    //             surname,
-    //             birthdate,
-    //             document_number,
-    //             phone,
-    //             photo,
-    //             status
-    //         });
-            
-    //         revalidatePath('/dashboard/partners');
-    //         redirect('/dashboard/partners');
-    //     })
-    // } else {
-    //     await apiFetchPost('/partners', {
-    //         name,
-    //         surname,
-    //         birthdate,
-    //         document_number,
-    //         phone,
-    //         status
-    //     });
-    // }
-
-    // revalidatePath('/dashboard/partners');
-    // redirect('/dashboard/partners');
 }
 
 export async function updatePartner(
@@ -120,22 +88,39 @@ export async function updatePartner(
     formData: FormData,
 ) {
 
-    const validatedFields = UpdatePartner.safeParse({
-        customerId: formData.get('customerId'),
-        amount: formData.get('amount'),
+    // Validate form using Zod
+    const validatedFields = CreatePartner.safeParse({
+        name: formData.get('name'),
+        surname: formData.get('surname'),
+        birthdate: formData.get('birthdate'),
+        document_number: formData.get('document_number'),
+        phone: formData.get('phone'),
         status: formData.get('status'),
     });
 
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Update Partner.',
+            message: 'Missing Fields. Failed to Create Partner.',
         };
     }
 
-    const { name, status } = validatedFields.data;
+    const { name, surname, birthdate, document_number, phone, status } = validatedFields.data;
 
-    await apiFetchPost(`/partners/${id}`, { name, status }, 'PUT');
+    const photo_file = formData.get('photo') || null;
+
+    const photo = await handlePhotoUpload(photo_file);
+
+    await apiFetchPost(`/partners/${id}`,
+        {
+            name,
+            surname,
+            birthdate,
+            document_number,
+            phone,
+            photo,
+            status
+        }, 'PUT');
 
     revalidatePath('/dashboard/partners');
     redirect('/dashboard/partners');

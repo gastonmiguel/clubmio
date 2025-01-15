@@ -1,6 +1,7 @@
 
 export function imageUrl(image: string) {
-    return process.env.STORAGE_SERVER_URL + '/' + image
+    const url = process.env.NEXT_PUBLIC_STORAGE_SERVER_URL + '/' + image;
+    return url;
 }
 
 export const formatCurrency = (amount: number) => {
