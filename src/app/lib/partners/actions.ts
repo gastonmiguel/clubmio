@@ -42,7 +42,7 @@ const handlePhotoUpload = async (photo_file: string | File) => {
 };
 
 export async function createPartner(prevState: State, formData: FormData) {
-    // Validate form using Zod
+
     const validatedFields = CreatePartner.safeParse({
         name: formData.get('name'),
         surname: formData.get('surname'),
@@ -85,7 +85,6 @@ export async function updatePartner(
     formData: FormData,
 ) {
 
-    // Validate form using Zod
     const validatedFields = UpdatePartner.safeParse({
         name: formData.get('name'),
         surname: formData.get('surname'),

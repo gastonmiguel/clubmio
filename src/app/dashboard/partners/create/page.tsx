@@ -14,7 +14,7 @@ export default async function Page() {
         breadcrumbs={[
           { label: 'Socios', href: '/dashboard/partners' },
           {
-            label: 'Crear Socios',
+            label: 'Crear',
             href: '/dashboard/partners/create',
             active: true,
           },

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logout } from '../lib/actions';
 
 export default function Error({
   error,
@@ -25,6 +26,16 @@ export default function Error({
         }
       >
         Probar de nuevo
+      </button>
+
+      <button
+        className="mt-4 rounded-md bg-blue-300 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
+        onClick={
+          // Attempt to recover by trying to re-render the invoices route
+          () => logout()
+        }
+      >
+        Reiniciar aplicación
       </button>
     </main>
   );

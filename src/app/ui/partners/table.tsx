@@ -68,7 +68,7 @@ export default async function PartnersTable({
                   Fecha de nacimiento
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Status
+                  Estado
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>

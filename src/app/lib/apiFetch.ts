@@ -1,13 +1,18 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
 const API_URL = process.env.API_SERVER_URL;
-const token = "54|HfmTBCvB2NhCEpvSMvBjFhZKBeY7F5wY8NC4bELR9f6f000e";
 
 export async function apiFetch(
     endpoint: string,
     method: string = 'GET',
     body: object | null = null
 ) {
+
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value || '';
+
     const headers: HeadersInit = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -22,8 +27,7 @@ export async function apiFetch(
         });
 
         if (response.status === 401) {
-            window.location.href = '/login';
-            return;
+            throw new Error('Error en la autenticación de usuario.');
         }
 
         if (!response.ok) {
@@ -33,31 +37,9 @@ export async function apiFetch(
         return await response.json();
     } catch (error) {
         if (error instanceof Error) {
-            throw new Error("Failed to fetch data: " + error.message);
+            throw new Error(error.message);
         } else {
-            throw new Error("Failed to fetch data: " + String(error));
+            throw new Error(String(error));
         }
-    }
-}
-
-
-export async function apiFetchPost(page: string, body: object, method: string = 'POST') {
-
-    try {
-
-        const uri = `${API_URL}${page}`;
-        const response = await fetch(uri, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(body),
-        });
-
-        return response;
-    } catch (error) {
-        throw new Error("Failed to POST api." + error);
     }
 }
