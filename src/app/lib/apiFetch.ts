@@ -27,7 +27,7 @@ export async function apiFetch(
         });
 
         if (response.status === 401) {
-            throw new Error('Error en la autenticación de usuario.');
+            throw new Error('Error: Unauthorized');
         }
 
         if (!response.ok) {

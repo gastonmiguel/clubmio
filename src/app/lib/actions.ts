@@ -16,7 +16,9 @@ export type StateLogin = {
         password?: string[];
     };
     message?: string | null;
-    redirectToDashboard?: boolean
+    redirectToDashboard?: boolean;
+    user?: object;
+    organization?: object;
 };
 
 const AuthenticateUser = FormSchema.omit({});
@@ -50,7 +52,7 @@ export async function authenticate(
             const cookieStore = await cookies();
             cookieStore.set('token', response.token);
 
-            return { ...state, message: 'Acceso correcto', redirectToDashboard: true };
+            return { ...state, message: 'Acceso correcto', redirectToDashboard: true, user: response.user, organization: response.organization };
         }
 
         return { ...state, message: response.message || 'Login failed.' };

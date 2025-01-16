@@ -19,6 +19,10 @@ export default function LoginForm() {
   const [state, formAction, isPending] = useActionState(authenticate, initialState);
 
   if (state.redirectToDashboard) {
+
+    localStorage.setItem("user", JSON.stringify(state.user));
+    localStorage.setItem("organization", JSON.stringify(state.organization));
+
     router.push('/dashboard');
   }
 
