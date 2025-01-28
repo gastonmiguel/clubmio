@@ -6,18 +6,18 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "clubmio.ddns.net",
-      },
+      }
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/dashboard',
-        permanent: true,
-      }
-    ]
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/dashboard',
+  //       permanent: true,
+  //     }
+  //   ]
+  // },
 };
 
 export default nextConfig;
