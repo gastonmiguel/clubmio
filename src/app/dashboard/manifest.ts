@@ -1,10 +1,10 @@
-import type { MetadataRoute } from 'next'
- 
+import type { MetadataRoute } from 'next';
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'ClubMio',
     short_name: 'ClubMio',
-    description: 'Aplicacion de gestion de clubes de barrio',
+    description: 'Aplicación de gestión de clubes de barrio',
     start_url: '/dashboard',
     display: 'standalone',
     background_color: '#ffffff',
@@ -21,5 +21,5 @@ export default function manifest(): MetadataRoute.Manifest {
         type: 'image/png',
       },
     ],
-  }
+  };
 }
