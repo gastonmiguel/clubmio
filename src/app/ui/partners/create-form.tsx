@@ -15,6 +15,8 @@ import { createPartner, State } from '@/app/lib/partners/actions';
 import { useActionState } from 'react';
 import { Status } from '@/app/lib/partners/definitions';
 import Waiting from '../waiting';
+import InputText from "@/app/ui/forms/input-text";
+import InputNumber from "@/app/ui/forms/input-number";
 
 export default function Form() {
 
@@ -25,64 +27,20 @@ export default function Form() {
     return <Waiting />
   }
 
+  const userIcon = <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />;
+  const documentIcon = <DocumentIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />;
+
+
   return (
     <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
 
-        <div className="mb-4">
-          <label htmlFor="name" className="mb-2 block text-sm font-medium">
-            Escribe un nomnbre
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Ingresa un nombre"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
-            <div id="name-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.name &&
-                state.errors.name.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
+        <InputText name={'name'} placeholder={'Ingresa un nombre'} errors={ state.errors?.name } icon={ userIcon } />
+        <InputText name={'surname'} placeholder={'Ingresa un apellido'} errors={ state.errors?.surname } icon={ userIcon } />
 
-        <div className="mb-4">
-          <label htmlFor="surname" className="mb-2 block text-sm font-medium">
-            Escribe un apellido
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="surname"
-                name="surname"
-                type="text"
-                placeholder="Ingresa un apellido"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
-            <div id="surname-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.surname &&
-                state.errors.surname.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
 
-        <div className="mb-4">
-          <label htmlFor="birthdate" className="mb-2 block text-sm font-medium">
+  <div className="mb-4">
+    <label htmlFor="birthdate" className="mb-2 block text-sm font-medium">
             Escribe una fecha de nacimiento
           </label>
           <div className="relative mt-2 rounded-md">
@@ -107,31 +65,7 @@ export default function Form() {
           </div>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="document_number" className="mb-2 block text-sm font-medium">
-            Escribe un número de documento
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="document_number"
-                name="document_number"
-                type="text"
-                placeholder="ingresa un número de documento"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-              <DocumentIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
-            <div id="document_number-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.document_number &&
-                state.errors.document_number.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
+        <InputNumber name={'document_number'} placeholder={'ingresa un número de documento'} icon={ documentIcon } />
 
         <div className="mb-4">
           <label htmlFor="phone" className="mb-2 block text-sm font-medium">
